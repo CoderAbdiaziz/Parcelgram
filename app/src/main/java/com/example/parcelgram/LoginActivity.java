@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 import static com.example.parcelgram.R.id.etPassword;
 
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
+    private Button btnSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +48,47 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btnSignup = findViewById(R.id.btnSignup);
+        btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "onClick sign up button");
+                String username = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                createdUser(username, password);
 
+                // clear the username and password text boxes so the user can now log in
+                etUsername.setText("");
+                etPassword.setText("");
+            }
+        });
     }
+
+    private void createdUser(String username, String password) {
+        Log.i(TAG, "Attempting to sign up user "+ username);
+
+        // Create the ParseUser
+        ParseUser user = new ParseUser();
+        // Set core properties
+        user.setUsername(username);
+        user.setPassword(password);
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e != null) {
+
+                    // Sign up didn't succeed. Look at the ParseException
+                    // to figure out what went wrong
+                    Log.e(TAG, "Issue with creating user", e);
+                    return;
+                } else {
+                    // make a toast letting the user know your user has been created
+                    Toast.makeText(LoginActivity.this, "Successfully Created!", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+    }
+
 
     private void loginUser(String username, String password) {
         Log.i(TAG, "Attempting to login user "+ username);

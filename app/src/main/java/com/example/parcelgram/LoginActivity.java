@@ -2,11 +2,14 @@ package com.example.parcelgram;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import static com.example.parcelgram.R.id.etPassword;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -20,8 +23,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
+        etUsername = findViewById(R.id.etUsername);
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,10 +32,14 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick login button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                login
+                loginUser(username, password);
             }
         });
 
 
+    }
+
+    private void loginUser(String username, String password) {
+        Log.i(TAG, "Attempting to login user "+ username);
     }
 }

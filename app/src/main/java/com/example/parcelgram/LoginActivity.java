@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         if (ParseUser.getCurrentUser() != null) {
             goMainActivity();
@@ -115,4 +117,5 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
 }

@@ -85,12 +85,10 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     // make a toast letting the user know your user has been created
                     Toast.makeText(LoginActivity.this, "Successfully Created!", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
     }
-
 
     private void loginUser(String username, String password) {
         Log.i(TAG, "Attempting to login user "+ username);
@@ -109,7 +107,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
-
     }
 
     private void goMainActivity() {
@@ -117,5 +114,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
-
 }

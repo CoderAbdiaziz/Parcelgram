@@ -56,18 +56,26 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvUsername;
         private ImageView ivImage;
         private TextView tvDescription;
+        private  TextView tvUsername2;
+
+        private static final int SECOND_MILLIS = 1000;
+        private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
+        private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
+        private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvUsername2 = itemView.findViewById(R.id.tvUsername2);
         }
 
         public void bind(Post post) {
             // bind the post data to the view elements
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
+            tvUsername2.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(post.getImage().getUrl()).into(ivImage);

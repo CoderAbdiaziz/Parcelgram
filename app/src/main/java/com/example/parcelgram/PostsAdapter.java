@@ -2,7 +2,6 @@ package com.example.parcelgram;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -75,6 +73,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvDescription;
         private TextView tvUsername2;
         private TextView tvTimeStamp;
+        private ImageView ivLike;
+        private ImageView ivComment;
+        private ImageView ivShare;
 
         CardView container;
 
@@ -87,6 +88,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername2 = itemView.findViewById(R.id.tvUsername2);
             tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
             container = itemView.findViewById(R.id.container);
+            ivLike = itemView.findViewById(R.id.ivLike);
+            ivComment = itemView.findViewById(R.id.ivComment);
+            ivShare = itemView.findViewById(R.id.ivShare);
+
+
         }
 
         public void bind(final Post post) {
@@ -95,6 +101,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername.setText(post.getUser().getUsername());
             tvUsername2.setText(post.getUser().getUsername());
             tvTimeStamp.setText(getRelativeTimeAgo(post.getCreatedAt().toString()));
+            // TODO
+//            Glide.with(context). ;
+
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(post.getImage().getUrl()).into(ivImage);

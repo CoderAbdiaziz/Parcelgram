@@ -90,6 +90,7 @@ public class PostsFragment extends Fragment {
         // `client` here is an instance of Android Async HTTP
         // getHomeTimeline is an example endpoint.
         adapter.clear();
+        adapter.addAll(allPosts);
         queryPosts();
         swipeContainer.setRefreshing(false);
     }

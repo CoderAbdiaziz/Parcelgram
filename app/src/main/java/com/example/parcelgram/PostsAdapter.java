@@ -1,6 +1,7 @@
 package com.example.parcelgram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
 
+import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -51,13 +54,25 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         return posts.size();
     }
 
+    public void clear() {
+        posts.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Post> allPosts) {
+        posts.addAll(allPosts);
+        notifyDataSetChanged();
+    }
+
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvUsername;
         private ImageView ivImage;
         private TextView tvDescription;
-        private  TextView tvUsername2;
+        private TextView tvUsername2;
 
+        CardView container;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -66,9 +81,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvUsername2 = itemView.findViewById(R.id.tvUsername2);
+
+            container = itemView.findViewById(R.id.container);
         }
 
-        public void bind(Post post) {
+        public void bind(final Post post) {
             // bind the post data to the view elements
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
@@ -77,20 +94,19 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             if (image != null) {
                 Glide.with(context).load(post.getImage().getUrl()).into(ivImage);
             }
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // create intent for the new activity
+                    Intent intent = new Intent(context, PostDetails.class);
+                    // serialize the movie using parceler, use its short name as a key
+                    intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                    // show the activity
+                    context.startActivity(intent);
+                }
+            });
         }
+
     }
-
-    // Clean all elements of the recycler
-    public void clear() {
-        posts.clear();
-        notifyDataSetChanged();
-    }
-
-    // Add a list of items -- change to type used
-    public void addAll(List<Post> list) {
-        posts.addAll(list);
-        notifyDataSetChanged();
-    }
-
-
 }

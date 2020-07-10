@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.parcelgram.LoginActivity;
+import com.example.parcelgram.Post;
 import com.example.parcelgram.R;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 
 public class ProfilesFragment extends Fragment {

@@ -3,6 +3,7 @@ package com.example.parcelgram;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import com.parse.ParseFile;
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
@@ -71,6 +74,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivImage;
         private TextView tvDescription;
         private TextView tvUsername2;
+        private TextView tvTimeStamp;
 
         CardView container;
 
@@ -81,7 +85,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvUsername2 = itemView.findViewById(R.id.tvUsername2);
-
+            tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
             container = itemView.findViewById(R.id.container);
         }
 
@@ -90,6 +94,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             tvUsername2.setText(post.getUser().getUsername());
+            tvTimeStamp.setText(getRelativeTimeAgo(post.getCreatedAt().toString()));
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(post.getImage().getUrl()).into(ivImage);
@@ -107,6 +112,21 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 }
             });
         }
+        public String getRelativeTimeAgo(String rawJsonDate) {
+            String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+            SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+            sf.setLenient(true);
 
+            String relativeDate = "";
+            try {
+                long dateMillis = sf.parse(rawJsonDate).getTime();
+                relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+
+            return relativeDate;
+        }
     }
 }

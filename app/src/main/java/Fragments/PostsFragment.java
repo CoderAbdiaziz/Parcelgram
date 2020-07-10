@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +24,10 @@ import com.parse.ParseQuery;
 
 import org.json.JSONArray;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class PostsFragment extends Fragment {
@@ -116,4 +119,6 @@ public class PostsFragment extends Fragment {
             }
         });
     }
+
+
 }

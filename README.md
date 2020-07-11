@@ -48,7 +48,7 @@ Here's a walkthrough of implemented user stories:
 
 ![](https://github.com/CoderAbdiaziz/Parcelgram/blob/master/InstagramVid.gif)
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+GIF created with [Kap](https://getkap.co/).
 
 ## Credits
 
